@@ -81,10 +81,6 @@ let s:projections =
 \    "command": "mixin",
 \    "alternate": "tests/unit/mixins/{}-test.js"
 \  },
-\  "app/transforms/*.js": {
-\    "command": "transform",
-\    "alternate": "tests/unit/transforms/{}-test.js"
-\  },
 \  "app/routes/*.js": {
 \    "command": "route",
 \    "alternate": "tests/unit/routes/{}-test.js"
@@ -100,6 +96,10 @@ let s:projections =
 \  },
 \  "app/templates/*.hbs": {
 \    "command": "template",
+\  },
+\  "app/transforms/*.js": {
+\    "command": "transform",
+\    "alternate": "tests/unit/transforms/{}-test.js"
 \  },
 \  "config/environment.js": { "command": "environment" },
 \  "app/styles/*.scss": { "command": "style" },
