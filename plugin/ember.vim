@@ -53,6 +53,23 @@ augroup END
 
 let s:projections =
 \{
+\  "app/adapters/*.js": {
+\    "command": "adapter",
+\    "alternate": "tests/unit/adapters/{}-test.js"
+\  },
+\  "app/components/*.js": {
+\    "command": "component",
+\    "alternate": "tests/unit/components/{}-test.js"
+\  },
+\  "app/controllers/*.js": {
+\    "command": "controller",
+\    "alternate": "tests/unit/controllers/{}-test.js"
+\  },
+\  "app/helpers/*.js": {
+\    "command": "helper",
+\    "alternate": "tests/unit/helpers/{}-test.js"
+\  },
+\  "app/initializers/*.js": { "command": "initializer" },
 \  "app/models/*.js": {
 \    "command": "model",
 \    "alternate": "tests/unit/models/{}-test.js"
@@ -60,6 +77,14 @@ let s:projections =
 \  "app/mixins/*.js": {
 \    "command": "mixin",
 \    "alternate": "tests/unit/mixins/{}-test.js"
+\  },
+\  "app/transforms/*.js": {
+\    "command": "transform",
+\    "alternate": "tests/unit/transforms/{}-test.js"
+\  },
+\  "app/routes/*.js": {
+\    "command": "route",
+\    "alternate": "tests/unit/routes/{}-test.js"
 \  },
 \  "app/router.js": { "command": "router"},
 \  "app/serializers/*.js": {
@@ -70,25 +95,8 @@ let s:projections =
 \    "command": "service",
 \    "alternate": "tests/unit/services/{}-test.js"
 \  },
-\  "app/initializers/*.js": { "command": "initializer" },
-\  "app/routes/*.js": {
-\    "command": "route",
-\    "alternate": "app/controllers/{}.js"
-\  },
-\  "app/controllers/*.js": {
-\    "command": "controller",
-\    "alternate": "tests/unit/controllers/{}-test.js"
-\  },
-\  "app/helpers/*.js": {
-\    "command": "helper",
-\    "alternate": "tests/unit/helpers/{}-test.js"
-\  },
 \  "app/templates/*.hbs": {
 \    "command": "template",
-\  },
-\  "app/components/*.js": {
-\    "command": "component",
-\    "alternate": "tests/unit/components/{}-test.js"
 \  },
 \  "app/styles/*.scss": { "command": "style" },
 \  "bower.json": { "command": "bower" },
