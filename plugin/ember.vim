@@ -71,7 +71,6 @@ let s:projections =
 \    "command": "helper",
 \    "alternate": "tests/unit/helpers/{}-test.js"
 \  },
-\  "app/conf/*.js": { "command": "initializer" },
 \  "app/index.html": { "command": "index" },
 \  "app/initializers/*.js": { "command": "initializer" },
 \  "app/models/*.js": {
