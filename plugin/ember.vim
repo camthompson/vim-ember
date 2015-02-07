@@ -57,6 +57,7 @@ let s:projections =
 \    "command": "adapter",
 \    "alternate": "tests/unit/adapters/{}-test.js"
 \  },
+\  "app/app.js": { "command": "app" },
 \  "app/components/*.js": {
 \    "command": "component",
 \    "alternate": "tests/unit/components/{}-test.js"
@@ -69,6 +70,7 @@ let s:projections =
 \    "command": "helper",
 \    "alternate": "tests/unit/helpers/{}-test.js"
 \  },
+\  "app/conf/*.js": { "command": "initializer" },
 \  "app/initializers/*.js": { "command": "initializer" },
 \  "app/models/*.js": {
 \    "command": "model",
