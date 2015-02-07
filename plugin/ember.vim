@@ -79,18 +79,12 @@ let s:projections =
 \    "command": "controller",
 \    "alternate": "tests/unit/controllers/{}-test.js"
 \  },
-\  "app/views/*.js": {
-\    "command": "view",
-\    "alternate": "tests/unit/views/{}-test.js"
-\  },
 \  "app/helpers/*.js": {
 \    "command": "helper",
 \    "alternate": "tests/unit/helpers/{}-test.js"
 \  },
 \  "app/templates/*.hbs": {
 \    "command": "template",
-\    "template": [ "{{outlet}}" ],
-\    "alternate": "app/controllers/{}.js"
 \  },
 \  "app/components/*.js": {
 \    "command": "component",
