@@ -13,7 +13,7 @@ function! EmberDetect(...) abort
   endif
   let file = findfile('.ember-cli', escape(fn, ', ').';')
   if !empty(file)
-    let b:ember_root = fnamemodify(file, ':p:h:h')
+    let b:ember_root = fnamemodify(file, ':p:h')
     return 1
   endif
 endfunction
