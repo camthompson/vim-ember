@@ -100,6 +100,7 @@ let s:projections =
 \  "app/templates/*.hbs": {
 \    "command": "template",
 \  },
+\  "config/environment.js": { "command": "environment" },
 \  "app/styles/*.scss": { "command": "style" },
 \  "bower.json": { "command": "bower" },
 \  "package.json": { "command": "package" },
