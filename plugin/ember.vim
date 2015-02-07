@@ -58,6 +58,7 @@ let s:projections =
 \    "alternate": "tests/unit/adapters/{}-test.js"
 \  },
 \  "app/app.js": { "command": "app" },
+\  "Brocfile.js": { "command": "brocfile" },
 \  "app/components/*.js": {
 \    "command": "component",
 \    "alternate": "tests/unit/components/{}-test.js"
