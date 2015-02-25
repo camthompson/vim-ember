@@ -89,7 +89,7 @@ function! s:app_generator_command(bang,...) dict
 endfunction
 
 function! s:color_efm(pre, before, after)
-   return a:pre . '%\S%\+  %#' . a:before . "\e[0m  %#" . a:after . ',' .
+   return a:pre . '%\S%\+  %#' . a:before . "  %#" . a:after . ',' .
          \ a:pre . '%\s %#'.a:before.'  %#'.a:after . ','
 endfunction
 
