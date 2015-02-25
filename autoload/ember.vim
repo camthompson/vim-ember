@@ -6,6 +6,8 @@ let g:autoloaded_ember = 1
 " Utility Functions {{{1
 
 let s:app_prototype = {}
+let s:buffer_prototype = {}
+let s:readable_prototype = {}
 
 function! s:add_methods(namespace, method_names)
   for name in a:method_names
@@ -42,6 +44,16 @@ function! s:rquote(str)
     return shellescape(a:str)
   endif
 endfunction
+
+function! s:buffer_getvar(varname) dict abort
+  return getbufvar(self.number(),a:varname)
+endfunction
+
+function! s:buffer_setvar(varname, val) dict abort
+  return setbufvar(self.number(),a:varname,a:val)
+endfunction
+
+call s:add_methods('buffer',['getvar','setvar'])
 " }}}1
 " Public Interface {{{1
 
@@ -57,6 +69,16 @@ function! ember#app(...) abort
   endif
   return {}
 endfunction
+
+function! ember#buffer(...)
+  return extend(extend({'#': bufnr(a:0 ? a:1 : '%')},s:buffer_prototype,'keep'),s:readable_prototype,'keep')
+endfunction
+
+function! s:buffer_number() dict abort
+  return self['#']
+endfunction
+
+call s:add_methods('buffer',['number'])
 " }}}1
 " Commands {{{1
 " }}}1
@@ -154,7 +176,22 @@ function! ember#buffer_setup() abort
   if !exists('b:ember_root')
     return ''
   endif
+  let self = ember#buffer()
   call s:BufScriptWrappers()
+  let ft = self.getvar('&filetype')
+  if ft =~# '^javascript'
+    if exists("g:loaded_surround")
+      call self.setvar('surround_36', "${\r}")            " $
+      call self.setvar('surround_103', "this.get('\r')")  " g
+      call self.setvar('surround_115', "this.set('\r')")  " t
+      call self.setvar('surround_97', "this.attr('\r')")  " a
+    endif
+  endif
+  if ft =~# 'handlebars'
+    if exists("g:loaded_surround")
+      call self.setvar('surround_123', "{{\r}}")          " {
+    endif
+  endif
 endfunction
 " }}}1
 " Initialization {{{1
