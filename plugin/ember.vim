@@ -3,6 +3,7 @@ if exists('g:loaded_ember') || &cp || v:version < 700
 endif
 let g:loaded_ember = 1
 
+" Detection {{{1
 function! EmberDetect(...) abort
   if exists('b:ember_root')
     return 1
@@ -17,6 +18,8 @@ function! EmberDetect(...) abort
     return 1
   endif
 endfunction
+" }}}1
+" Initialization {{{1
 
 if !exists('g:did_load_ftplugin')
   filetype plugin on
@@ -111,3 +114,5 @@ let s:projections =
 \  "package.json": { "command": "package" },
 \  "README.md": { "command": "readme" }
 \}
+" }}}1
+" vim:set sw=2 sts=2:

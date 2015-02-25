@@ -3,18 +3,9 @@ if exists('g:autoloaded_ember') || &cp
 endif
 let g:autoloaded_ember = 1
 
-function! ember#buffer_setup() abort
-  if !exists('b:ember_root')
-    return ''
-  endif
-  call s:BufScriptWrappers()
-endfunction
+" Utility Functions {{{1
 
 let s:app_prototype = {}
-
-if !exists('s:apps')
-  let s:apps = {}
-endif
 
 function! s:add_methods(namespace, method_names)
   for name in a:method_names
@@ -51,10 +42,8 @@ function! s:rquote(str)
     return shellescape(a:str)
   endif
 endfunction
-
-function! s:BufScriptWrappers()
-  command! -buffer -bang -bar -nargs=* -complete=customlist,s:Complete_generate Egenerate :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
-endfunction
+" }}}1
+" Public Interface {{{1
 
 function! ember#app(...) abort
   let root = a:0 ? a:1 : get(b:, 'ember_root', '')
@@ -68,6 +57,33 @@ function! ember#app(...) abort
   endif
   return {}
 endfunction
+" }}}1
+" Commands {{{1
+" }}}1
+" Script Wrappers {{{1
+
+function! s:BufScriptWrappers()
+  command! -buffer -bang -bar -nargs=* -complete=customlist,s:Complete_generate Egenerate :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
+endfunction
+
+function! s:app_generators() dict abort
+  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
+endfunction
+
+function! s:color_efm(pre, before, after)
+   return a:pre . '%\S%\+  %#' . a:before . "  %#" . a:after . ',' .
+         \ a:pre . '%\s %#'.a:before.'  %#'.a:after . ','
+endfunction
+
+let s:efm_generate =
+      \ s:color_efm('%-G', 'version', '') .
+      \ s:color_efm('%-G', 'requires a blueprint', '') .
+      \ s:color_efm('%-G', 'installing', '%f') .
+      \ s:color_efm('%-G', 'create', ' ') .
+      \ s:color_efm('%-G', 'identical', ' ') .
+      \ s:color_efm('', '%m', ' %f') .
+      \ s:color_efm('', '%m', '%f') .
+      \ '%-G%.%#'
 
 function! s:app_generator_command(bang,...) dict
   let cmd = join(map(copy(a:000),'s:rquote(v:val)'),' ')
@@ -88,20 +104,7 @@ function! s:app_generator_command(bang,...) dict
   endif
 endfunction
 
-function! s:color_efm(pre, before, after)
-   return a:pre . '%\S%\+  %#' . a:before . "  %#" . a:after . ',' .
-         \ a:pre . '%\s %#'.a:before.'  %#'.a:after . ','
-endfunction
-
-let s:efm_generate =
-      \ s:color_efm('%-G', 'version', '') .
-      \ s:color_efm('%-G', 'requires a blueprint', '') .
-      \ s:color_efm('%-G', 'installing', '%f') .
-      \ s:color_efm('%-G', 'create', ' ') .
-      \ s:color_efm('%-G', 'identical', ' ') .
-      \ s:color_efm('', '%m', ' %f') .
-      \ s:color_efm('', '%m', '%f') .
-      \ '%-G%.%#'
+call s:add_methods('app', ['generators', 'generator_command'])
 
 function! s:Complete_script(ArgLead,CmdLine,P)
   let cmd = s:sub(a:CmdLine,'^\u\w*\s+','')
@@ -121,10 +124,8 @@ endfunction
 function! s:Complete_generate(A,L,P)
   return s:CustomComplete(a:A,a:L,a:P,"generate")
 endfunction
-
-function! s:app_generators() dict abort
-  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
-endfunction
+" }}}1
+" Projection Commands {{{1
 
 function! s:completion_filter(results, A, ...) abort
   let results = sort(type(a:results) == type("") ? split(a:results,"\n") : copy(a:results))
@@ -145,5 +146,20 @@ function! s:completion_filter(results, A, ...) abort
   let filtered = filter(copy(results),'v:val =~# regex')
   return filtered
 endfunction
+" }}}1
+" Detection {{{1
 
-call s:add_methods('app', ['generators', 'generator_command'])
+function! ember#buffer_setup() abort
+  if !exists('b:ember_root')
+    return ''
+  endif
+  call s:BufScriptWrappers()
+endfunction
+" }}}1
+" Initialization {{{1
+
+if !exists('s:apps')
+  let s:apps = {}
+endif
+" }}}1
+" vim:set sw=2 sts=2:
