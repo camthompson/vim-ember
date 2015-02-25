@@ -26,8 +26,20 @@ function! s:function(name)
     return function(substitute(a:name,'^s:',matchstr(expand('<sfile>'), '<SNR>\d\+_'),''))
 endfunction
 
+function! s:sub(str,pat,rep)
+  return substitute(a:str,'\v\C'.a:pat,a:rep,'')
+endfunction
+
 function! s:gsub(str,pat,rep)
   return substitute(a:str,'\v\C'.a:pat,a:rep,'g')
+endfunction
+
+function! s:startswith(string,prefix)
+  return strpart(a:string, 0, strlen(a:prefix)) ==# a:prefix
+endfunction
+
+function! s:endswith(string,suffix)
+  return strpart(a:string, len(a:string) - len(a:suffix), len(a:suffix)) ==# a:suffix
 endfunction
 
 function! s:rquote(str)
@@ -41,7 +53,7 @@ function! s:rquote(str)
 endfunction
 
 function! s:BufScriptWrappers()
-  command! -buffer -bang -bar -nargs=* Egenerate :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
+  command! -buffer -bang -bar -nargs=* -complete=customlist,s:Complete_generate Egenerate :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
 endfunction
 
 function! ember#app(...) abort
@@ -91,4 +103,47 @@ let s:efm_generate =
       \ s:color_efm('', '%m', '%f') .
       \ '%-G%.%#'
 
-call s:add_methods('app', ['generator_command'])
+function! s:Complete_script(ArgLead,CmdLine,P)
+  let cmd = s:sub(a:CmdLine,'^\u\w*\s+','')
+  if cmd =~# '^\%(generate\|destroy\)\s\+'.a:ArgLead.'$'
+    return s:completion_filter(ember#app().generators(),a:ArgLead)
+  else
+    return ''
+  endif
+endfunction
+
+function! s:CustomComplete(A,L,P,cmd)
+  let L = "Rscript ".a:cmd." ".s:sub(a:L,'^\h\w*\s+','')
+  let P = a:P - strlen(a:L) + strlen(L)
+  return s:Complete_script(a:A,L,P)
+endfunction
+
+function! s:Complete_generate(A,L,P)
+  return s:CustomComplete(a:A,a:L,a:P,"generate")
+endfunction
+
+function! s:app_generators() dict abort
+  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
+endfunction
+
+function! s:completion_filter(results, A, ...) abort
+  let results = sort(type(a:results) == type("") ? split(a:results,"\n") : copy(a:results))
+  call filter(results,'v:val !~# "\\~$"')
+  if a:A =~# '\*'
+    let regex = s:gsub(a:A,'\*','.*')
+    return filter(copy(results),'v:val =~# "^".regex')
+  endif
+  let filtered = filter(copy(results),'s:startswith(v:val,a:A)')
+  if !empty(filtered) | return filtered | endif
+  let prefix = s:sub(a:A,'(.*[/]|^)','&_')
+  let filtered = filter(copy(results),"s:startswith(v:val,prefix)")
+  if !empty(filtered) | return filtered | endif
+  let regex = s:gsub(a:A,'[^/]','[&].*')
+  let filtered = filter(copy(results),'v:val =~# "^".regex')
+  if !empty(filtered) | return filtered | endif
+  let regex = s:gsub(a:A,'.','[&].*')
+  let filtered = filter(copy(results),'v:val =~# regex')
+  return filtered
+endfunction
+
+call s:add_methods('app', ['generators', 'generator_command'])
