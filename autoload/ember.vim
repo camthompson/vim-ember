@@ -93,19 +93,12 @@ function! s:app_generators() dict abort
   return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
 endfunction
 
-function! s:color_efm(pre, before, after)
-   return a:pre . '%\S%\+  %#' . a:before . "  %#" . a:after . ',' .
-         \ a:pre . '%\s %#'.a:before.'  %#'.a:after . ','
-endfunction
-
 let s:efm_generate =
-      \ s:color_efm('%-G', 'version', '') .
-      \ s:color_efm('%-G', 'requires a blueprint', '') .
-      \ s:color_efm('%-G', 'installing', '%f') .
-      \ s:color_efm('%-G', 'create', ' ') .
-      \ s:color_efm('%-G', 'identical', ' ') .
-      \ s:color_efm('', '%m', ' %f') .
-      \ s:color_efm('', '%m', '%f') .
+      \'%-G%.%#version:%.%#,' .
+      \'%-G%.%#help`%.%#,' .
+      \'%-G%.%#Overwrite%.%#,' .
+      \'%\S%\+ %m %f,' .
+      \'%m %f, ' .
       \ '%-G%.%#'
 
 function! s:app_generator_command(bang,...) dict
