@@ -63,7 +63,8 @@ endfunction
 " Script Wrappers {{{1
 
 function! s:BufScriptWrappers()
-  command! -buffer -bang -bar -nargs=* -complete=customlist,s:Complete_generate Egenerate :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
+  command! -buffer -bang -bar -nargs=* -complete=customlist,s:Complete_generate  Egenerate     :execute ember#app().generator_command(<bang>0,'generate',<f-args>)
+  command! -buffer -bar -nargs=*       -complete=customlist,s:Complete_generate  Edestroy      :execute ember#app().generator_command(1,'destroy',<f-args>)
 endfunction
 
 function! s:app_generators() dict abort
@@ -90,7 +91,7 @@ function! s:app_generator_command(bang,...) dict
   let old_makeprg = &l:makeprg
   let old_errorformat = &l:errorformat
   try
-    let &l:makeprg = 'ember '.l:cmd
+    let &l:makeprg = 'ember '.cmd
     let &l:errorformat = s:efm_generate
     noautocmd make!
   finally
