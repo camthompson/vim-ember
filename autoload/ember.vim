@@ -6,6 +6,7 @@ let g:autoloaded_ember = 1
 " Utility Functions {{{1
 
 let s:app_prototype = {}
+let s:file_prototype = {}
 let s:buffer_prototype = {}
 let s:readable_prototype = {}
 
@@ -45,6 +46,12 @@ function! s:rquote(str)
   endif
 endfunction
 
+function! s:app_path(...) dict
+  return join([self.root]+a:000,'/')
+endfunction
+
+call s:add_methods('app',['path'])
+
 function! s:buffer_getvar(varname) dict abort
   return getbufvar(self.number(),a:varname)
 endfunction
@@ -74,11 +81,28 @@ function! ember#buffer(...)
   return extend(extend({'#': bufnr(a:0 ? a:1 : '%')},s:buffer_prototype,'keep'),s:readable_prototype,'keep')
 endfunction
 
+function! s:buffer_app() dict abort
+  if self.getvar('ember_root') != ''
+    return ember#app(self.getvar('ember_root'))
+  else
+    throw 'Not in an Ember app'
+  endif
+endfunction
+
+function! s:file_path() dict abort
+  return self.app().path(self._name)
+endfunction
+
 function! s:buffer_number() dict abort
   return self['#']
 endfunction
 
-call s:add_methods('buffer',['number'])
+function! s:buffer_path() dict abort
+  return s:gsub(fnamemodify(bufname(self.number()),':p'),'\\ @!','/')
+endfunction
+
+call s:add_methods('file',['path'])
+call s:add_methods('buffer',['app','number','path'])
 " }}}1
 " Commands {{{1
 " }}}1
@@ -120,7 +144,7 @@ function! s:app_generator_command(bang,...) dict
   endif
 endfunction
 
-call s:add_methods('app', ['generators', 'generator_command'])
+call s:add_methods('app', ['path', 'generators', 'generator_command'])
 
 function! s:Complete_script(ArgLead,CmdLine,P)
   let cmd = s:sub(a:CmdLine,'^\u\w*\s+','')
@@ -165,12 +189,20 @@ endfunction
 " }}}1
 " Detection {{{1
 
+function! s:SetBasePath() abort
+  let self = ember#buffer()
+  if self.app().path() =~ '://'
+    return
+  endif
+endfunction
+
 function! ember#buffer_setup() abort
   if !exists('b:ember_root')
     return ''
   endif
   let self = ember#buffer()
   call s:BufScriptWrappers()
+  call s:SetBasePath()
   let ft = self.getvar('&filetype')
   if ft =~# '^javascript'
     if exists("g:loaded_surround")
