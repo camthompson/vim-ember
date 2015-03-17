@@ -120,6 +120,7 @@ endfunction
 let s:efm_generate =
       \'%-G%.%#version:%.%#,' .
       \'%-G%.%#help`%.%#,' .
+      \'%-G%.%#index.js`%.%#,' .
       \'%-G%.%#Overwrite%.%#,' .
       \'%\S%\+ %m %f,' .
       \'%m %f, ' .
