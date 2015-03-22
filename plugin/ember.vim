@@ -109,6 +109,7 @@ let s:projections =
 \    "alternate": "tests/unit/utils/{}-test.js"
 \  },
 \  "tests/acceptance/*-test.js": { "command": "acceptance"},
+\  "tests/unit/*-test.js": { "command": "test"},
 \  "config/environment.js": { "command": "environment" },
 \  "app/styles/*.scss": { "command": "style" },
 \  "bower.json": { "command": "bower" },
