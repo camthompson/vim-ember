@@ -152,7 +152,7 @@ function! s:BufScriptWrappers()
 endfunction
 
 function! s:app_generators() dict abort
-  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
+  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'addon-import', 'app', 'blueprint', 'component', 'component-addon', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'model-test', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
 endfunction
 
 let s:efm_generate =
