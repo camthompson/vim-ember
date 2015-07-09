@@ -108,6 +108,7 @@ let s:projections =
 \    "command": "util",
 \    "alternate": "tests/unit/utils/{}-test.js"
 \  },
+\  "ember-cli-build.js": { "command": "build" },
 \  "tests/acceptance/*-test.js": { "command": "acceptance"},
 \  "tests/unit/*-test.js": { "command": "test"},
 \  "config/environment.js": { "command": "environment" },
