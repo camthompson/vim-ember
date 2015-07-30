@@ -157,6 +157,8 @@ endfunction
 
 let s:efm_generate =
       \'%-G%.%#version:%.%#,' .
+      \'%-G%.%#installing%.%#,' .
+      \'%-G%.%#DEPRECATION%.%#,' .
       \'%-G%.%#help`%.%#,' .
       \'%-G%.%#index.js`%.%#,' .
       \'%-G%.%#Overwrite%.%#,' .
