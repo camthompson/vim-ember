@@ -110,6 +110,7 @@ let s:projections =
 \  },
 \  "ember-cli-build.js": { "command": "build" },
 \  "tests/acceptance/*-test.js": { "command": "acceptance"},
+\  "tests/integration/*-test.js": { "command": "integration"},
 \  "tests/unit/*-test.js": { "command": "test"},
 \  "config/environment.js": { "command": "environment" },
 \  "app/styles/*.scss": { "command": "style" },
