@@ -9,6 +9,9 @@ function! EmberDetect(...) abort
     return 1
   endif
   let fn = fnamemodify(a:0 ? a:1 : expand('%'), ':p')
+  if fn =~# ':[\/]\{2\}'
+    return 0
+  endif
   if !isdirectory(fn)
     let fn = fnamemodify(fn, ':h')
   endif
