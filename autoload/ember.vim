@@ -36,6 +36,23 @@ function! s:endswith(string,suffix)
   return strpart(a:string, len(a:string) - len(a:suffix), len(a:suffix)) ==# a:suffix
 endfunction
 
+function! s:uniq(list) abort
+  let i = 0
+  let seen = {}
+  while i < len(a:list)
+    if (a:list[i] ==# '' && exists('empty')) || has_key(seen,a:list[i])
+      call remove(a:list,i)
+    elseif a:list[i] ==# ''
+      let i += 1
+      let empty = 1
+    else
+      let seen[a:list[i]] = 1
+      let i += 1
+    endif
+  endwhile
+  return a:list
+endfunction
+
 function! s:rquote(str)
   if a:str =~ '^[A-Za-z0-9_/.:-]\+$'
     return a:str
@@ -51,6 +68,27 @@ function! s:app_path(...) dict
 endfunction
 
 call s:add_methods('app',['path'])
+
+" Split a path into a list.
+function! s:pathsplit(path) abort
+  if type(a:path) == type([]) | return copy(a:path) | endif
+  return split(s:gsub(a:path, '\\ ', ' '), ',')
+endfunction
+
+" Convert a list to a path.
+function! s:pathjoin(...) abort
+  let i = 0
+  let path = ""
+  while i < a:0
+    if type(a:000[i]) == type([])
+      let path .= "," . escape(join(a:000[i], ','), ' ')
+    else
+      let path .= "," . a:000[i]
+    endif
+    let i += 1
+  endwhile
+  return substitute(path,'^,','','')
+endfunction
 
 function! s:buffer_getvar(varname) dict abort
   return getbufvar(self.number(),a:varname)
@@ -114,11 +152,13 @@ function! s:BufScriptWrappers()
 endfunction
 
 function! s:app_generators() dict abort
-  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'app', 'blueprint', 'component', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
+  return ['acceptance-test', 'adapter', 'adapter-test', 'addon', 'addon-import', 'app', 'blueprint', 'component', 'component-addon', 'component-test', 'controller', 'controller-test', 'helper', 'helper-test', 'http-mock', 'http-proxy', 'in-repo-addon', 'initializer', 'initializer-test', 'lib', 'mixin', 'mixin-test', 'model', 'model-test', 'resource', 'route', 'route-test', 'serializer', 'serializer-test', 'server', 'service', 'service-test', 'template', 'test-helper', 'transform', 'transform-test', 'util', 'util-test', 'view', 'view-test']
 endfunction
 
 let s:efm_generate =
       \'%-G%.%#version:%.%#,' .
+      \'%-G%.%#installing%.%#,' .
+      \'%-G%.%#DEPRECATION%.%#,' .
       \'%-G%.%#help`%.%#,' .
       \'%-G%.%#index.js`%.%#,' .
       \'%-G%.%#Overwrite%.%#,' .
@@ -166,7 +206,7 @@ function! s:Complete_generate(A,L,P)
   return s:CustomComplete(a:A,a:L,a:P,"generate")
 endfunction
 " }}}1
-" Projection Commands {{{1
+" Projections {{{1
 
 function! s:completion_filter(results, A, ...) abort
   let results = sort(type(a:results) == type("") ? split(a:results,"\n") : copy(a:results))
@@ -187,6 +227,24 @@ function! s:completion_filter(results, A, ...) abort
   let filtered = filter(copy(results),'v:val =~# regex')
   return filtered
 endfunction
+
+function! s:combine_projections(dest, src, ...) abort
+  let extra = a:0 ? a:1 : {}
+  if type(a:src) == type({})
+    for [pattern, original] in items(a:src)
+      let projection = extend(copy(original), extra)
+      if !has_key(projection, 'prefix') && !has_key(projection, 'format')
+        let a:dest[pattern] = s:extend_projection(get(a:dest, pattern, {}), projection)
+      endif
+    endfor
+  endif
+  return a:dest
+endfunction
+
+function! s:app_projections() dict abort
+  let dict = {}
+  call s:combine_projections(dict, get(g:, 'ember_projections', ''), {'check': 1})
+endfunction
 " }}}1
 " Detection {{{1
 
@@ -195,6 +253,15 @@ function! s:SetBasePath() abort
   if self.app().path() =~ '://'
     return
   endif
+  let add_dot = self.getvar('&path') =~# '^\.\%(,\|$\)'
+  let old_path = s:pathsplit(s:sub(self.getvar('&path'),'^\.%(,|$)',''))
+
+  let path = []
+  let path += get(g:, 'ember_path_additions', [])
+  let path += get(g:, 'ember_path', [])
+  let path += ['app/models', 'app/components', 'app/controllers', 'app/mixins']
+  call map(path, 'ember#app().path(v:val)')
+  call self.setvar('&path',(add_dot ? '.,' : '').s:pathjoin(s:uniq(path + [self.app().path()] + old_path)))
 endfunction
 
 function! ember#buffer_setup() abort
@@ -204,6 +271,7 @@ function! ember#buffer_setup() abort
   let self = ember#buffer()
   call s:BufScriptWrappers()
   call s:SetBasePath()
+  call self.setvar('&suffixesadd', s:sub(self.getvar('&suffixesadd'),'^$','.js'))
   let ft = self.getvar('&filetype')
   if ft =~# '^javascript'
     if exists("g:loaded_surround")
