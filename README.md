@@ -6,6 +6,11 @@ It's like [vim-rails][vim-rails], but it's for [Ember][ember].
 * [ember-cli][ember-cli] interface. Run `:Egenerate` and `:Edestroy` from inside vim. `:Egenerate model foo` generates the foo model and loads the generated files into the quickfix list.
 * [vim-surround][surround] integration. In Handlebars files, use `{` to surround in mustaches. In JavaScript files, use `g` to surround in `this.get('')`, `s` to surround in `this.set('')`, and `$` to surround in `${}`.
 
+## Dependencies
+
+* Install [projectionist][projectionist] for the navigation commands.
+* Install [surround][surround] for the surround maps.
+
 ## Credits
 
 All credit is due to His Holyness [tpope][tpope]. I basically cloned [vim-rails][vim-rails] and `s/rails/ember`ed.
@@ -13,11 +18,6 @@ All credit is due to His Holyness [tpope][tpope]. I basically cloned [vim-rails]
 ## Self Promotion
 
 If you like this plugin, let's be internet friends on [Twitter][twitter] or [GitHub][github].
-
-## Dependencies
-
-* Install [projectionist][projectionist] for the navigation commands.
-* Install [surround][surround] for the surround maps.
 
 ## License
 
