@@ -9,8 +9,6 @@ Author:  Cam Thompson <http://camthompson.com/>
 |ember-scripts|                 Script Wrappers
 |ember-integration|             Integration
 |ember-vim-integration|             Integration with the Vim Universe
-|ember-projections|             Projections
-|ember-global-settings|         Global Settings
 |ember-about|                   About ember.vim
 |ember-license|                     License
 
@@ -201,5 +199,16 @@ Key	Filetype	Surrounding ~
 g	js		this.get('^')
 s	js		this.set('^')
 {	hbs		{{^}}
+
+ABOUT					*ember-about* *ember-plugin-author*
+
+Bugs can be reported and the very latest development version can be retrieved
+from GitHub:
+	https://github.com/camthompson/vim-ember >
+	git clone git://github.com/camthompson/vim-ember.git
+<
+						*ember-license*
+Copyright (c) Cam Thompson.  Distributed under the same terms as Vim itself.
+See |license|.
 
 vim:tw=78:ts=8:ft=help:norl:
