@@ -156,4 +156,24 @@ Finally, one Vim feature that proves helpful in conjunction with all of the
 above is |CTRL-^|.  This keystroke edits the previous file, and is helpful to
 back out of any of the above commands.
 
+SCRIPT WRAPPERS					*ember-scripts*
+
+The following commands are wrappers around the ember command provided by
+ember-cli. Most have extra features beyond calling the command. A limited
+amount of completion with <Tab> is supported.
+
+
+						*ember-:Ember*
+:Ember {command}
+			Invoke ember {command}.
+
+						*ember-:Egenerate*
+:Egenerate {options}	Calls ember generate {options} and loads the
+			generated files into the quickfix list.  Use ! to
+			surpress jumping to the first file.
+
+			*ember-:Edestroy*
+:Edestroy {options}	Calls ember destroy {options} and loads the
+			generated files into the quickfix list
+
 vim:tw=78:ts=8:ft=help:norl:
