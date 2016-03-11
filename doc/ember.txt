@@ -21,14 +21,12 @@ This plugin is only available if 'compatible' is not set.
 INTRODUCTION					*ember-introduction* *ember*
 
 Whenever you edit a file in a Ember application, this plugin will be
-automatically activated.  This sets various options and defines a few
+automatically activated. This sets various options and defines a few
 buffer-specific commands.
 
 NAVIGATION					*ember-navigation*
 
-Navigation is k
-Navigation is where the real power of this plugin lies.  Efficient use of the
-following features will greatly ease navigating the Ember file structure.
+The following features help navigating the structure of an Ember app.
 
 Alternate and Files ~
 						*ember-alternate*
@@ -36,20 +34,20 @@ The :A command is used to jump to an "alternate" file.
 
 	*ember-:A* *ember-:AE* *ember-:AS* *ember-:AV* *ember-:AT*
 :A			These commands were picked to mimic Michael Sharpe's
-:AE			a.vim.  Briefly, they edit the "alternate" file, in
+:AE			a.vim. Briefly, they edit the "alternate" file, in
 :AS			either the same window (:A and :AE), a new split
 :AV			window (:AS), a new vertically split window (:AV), a
 :AT			new tab (:AT).
 
 					*ember-alternate*
-For now, the alternate file is the test file.
+For now, the alternate file is the corresponding test file.
 
 File Type Navigation Commands ~
 						*ember-type-navigation*
 Commands to navigate deliberately to a specific file are provided.
 
 Each of the following commands has variants for splitting, vertical splitting,
-opening in a new tab, and reading the file into the current buffer.  For
+opening in a new tab, and reading the file into the current buffer. For
 :Emodel, those variants would be :Smodel, :Vmodel, :Tmodel, and :Dmodel.
 
 :Eacceptance					|ember-:Eacceptance|
@@ -162,7 +160,7 @@ opening in a new tab, and reading the file into the current buffer.  For
 :Eutil [{name}]		Edit the specified util.
 
 Finally, one Vim feature that proves helpful in conjunction with all of the
-above is |CTRL-^|.  This keystroke edits the previous file, and is helpful to
+above is |CTRL-^|. This keystroke edits the previous file, and is helpful to
 back out of any of the above commands.
 
 SCRIPT WRAPPERS					*ember-scripts*
@@ -178,7 +176,7 @@ amount of completion with <Tab> is supported.
 
 						*ember-:Egenerate*
 :Egenerate {options}	Calls ember generate {options} and loads the
-			generated files into the quickfix list.  Use ! to
+			generated files into the quickfix list. Use ! to
 			surpress jumping to the first file.
 
 			*ember-:Edestroy*
@@ -190,15 +188,12 @@ INTEGRATION					*ember-integration*
 Integration with the Vim Universe ~
 						*ember-vim-integration*
 
-A handful of Vim plugins are enhanced by rails.vim.  All plugins mentioned can
-be found at http://www.vim.org/.
-
 						*ember-surround*
 The |surround| plugin available from vim.org enables adding and removing
-"surroundings" like parentheses, quotes, and HTML tags.  Even by itself, it is
-quite useful for Rails development, particularly Handlebars editing.  When
+"surroundings" like parentheses, quotes, and HTML tags. Even by itself, it is
+quite useful for Ember development, particularly Handlebars editing. When
 coupled with this plugin, a few additional replacement surroundings are
-available in eRuby files.  See the |surround| documentation for details on how
+available in eRuby files. See the |surround| documentation for details on how
 to use them. The table below uses ^ to represent the position of the
 surrounded text.
 

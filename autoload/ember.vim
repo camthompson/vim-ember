@@ -197,7 +197,7 @@ function! s:Complete_script(ArgLead,CmdLine,P)
 endfunction
 
 function! s:CustomComplete(A,L,P,cmd)
-  let L = "Rscript ".a:cmd." ".s:sub(a:L,'^\h\w*\s+','')
+  let L = a:cmd." ".s:sub(a:L,'^\h\w*\s+','')
   let P = a:P - strlen(a:L) + strlen(L)
   return s:Complete_script(a:A,L,P)
 endfunction
