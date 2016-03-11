@@ -53,6 +53,7 @@ opening in a new tab, and reading the file into the current buffer.  For
 :Emodel, those variants would be :Smodel, :Vmodel, :Tmodel, and :Dmodel.
 
 :Eacceptance					|ember-:Eacceptance|
+:Eadapter					|ember-:Eadapter|
 :Eapp						|ember-:Eapp|
 :Ebower						|ember-:Ebower|
 :Ebrocfile					|ember-:Ebrocfile|
@@ -81,6 +82,9 @@ opening in a new tab, and reading the file into the current buffer.  For
 
 *ember-:Eacceptance*
 :Eacceptance [{name}]	Edit the specified acceptance test.
+
+*ember-:Eadapter*
+:Eadapter [{name}]	Edit the specified adapter.
 
 *ember-:Eapp*
 :Eapp			Edit app/app.js.
@@ -133,6 +137,9 @@ opening in a new tab, and reading the file into the current buffer.  For
 *ember-:Eroute*
 :Eroute [{name}]	Edit the specified route.
 
+*ember-:Erouter*
+:Erouter [{name}]	Edit the router.
+
 *ember-:Eserializer*
 :Eserializer [{name}]	Edit the specified serializer.
 
@@ -144,6 +151,9 @@ opening in a new tab, and reading the file into the current buffer.  For
 
 *ember-:Etemplate*
 :Etemplate [{name}]	Edit the specified template.
+
+*ember-:Etest*
+:Etest [{name}]		Edit the specified unit test.
 
 *ember-:Etransform*
 :Etransform [{name}]	Edit the specified transform.
