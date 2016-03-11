@@ -79,6 +79,7 @@ let s:projections =
 \  },
 \  "app/index.html": { "command": "index" },
 \  "app/initializers/*.js": { "command": "initializer" },
+\  "app/instance-initializers/*.js": { "command": "instanceinit" },
 \  "app/models/*.js": {
 \    "command": "model",
 \    "alternate": "tests/unit/models/{}-test.js"
