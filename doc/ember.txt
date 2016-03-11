@@ -9,7 +9,6 @@ Author:  Cam Thompson <http://camthompson.com/>
 |ember-scripts|                 Script Wrappers
 |ember-integration|             Integration
 |ember-vim-integration|             Integration with the Vim Universe
-|ember-ember-integration|           Integration with the Ember Universe
 |ember-projections|             Projections
 |ember-global-settings|         Global Settings
 |ember-about|                   About ember.vim
@@ -175,5 +174,27 @@ amount of completion with <Tab> is supported.
 			*ember-:Edestroy*
 :Edestroy {options}	Calls ember destroy {options} and loads the
 			generated files into the quickfix list
+
+INTEGRATION					*ember-integration*
+
+Integration with the Vim Universe ~
+						*ember-vim-integration*
+
+A handful of Vim plugins are enhanced by rails.vim.  All plugins mentioned can
+be found at http://www.vim.org/.
+
+						*ember-surround*
+The |surround| plugin available from vim.org enables adding and removing
+"surroundings" like parentheses, quotes, and HTML tags.  Even by itself, it is
+quite useful for Rails development, particularly Handlebars editing.  When
+coupled with this plugin, a few additional replacement surroundings are
+available in eRuby files.  See the |surround| documentation for details on how
+to use them. The table below uses ^ to represent the position of the
+surrounded text.
+
+Key	Filetype	Surrounding ~
+g	js		this.get('^')
+s	js		this.set('^')
+{	hbs		{{^}}
 
 vim:tw=78:ts=8:ft=help:norl:
