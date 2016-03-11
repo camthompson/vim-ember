@@ -1,0 +1,159 @@
+*ember.txt*	Plugin for working with Ember applications
+
+Author:  Cam Thompson <http://camthompson.com/>
+
+|ember-introduction|            Introduction and Feature Summary
+|ember-navigation|              Navigation
+|ember-alternate-related|           Alternate
+|ember-type-navigation|             File Type Commands
+|ember-scripts|                 Script Wrappers
+|ember-integration|             Integration
+|ember-vim-integration|             Integration with the Vim Universe
+|ember-ember-integration|           Integration with the Ember Universe
+|ember-projections|             Projections
+|ember-global-settings|         Global Settings
+|ember-about|                   About ember.vim
+|ember-license|                     License
+
+This plugin is only available if 'compatible' is not set.
+
+{Vi does not have any of this}
+
+INTRODUCTION					*ember-introduction* *ember*
+
+Whenever you edit a file in a Ember application, this plugin will be
+automatically activated.  This sets various options and defines a few
+buffer-specific commands.
+
+NAVIGATION					*ember-navigation*
+
+Navigation is k
+Navigation is where the real power of this plugin lies.  Efficient use of the
+following features will greatly ease navigating the Ember file structure.
+
+Alternate and Files ~
+						*ember-alternate*
+The :A command is used to jump to an "alternate" file.
+
+	*ember-:A* *ember-:AE* *ember-:AS* *ember-:AV* *ember-:AT*
+:A			These commands were picked to mimic Michael Sharpe's
+:AE			a.vim.  Briefly, they edit the "alternate" file, in
+:AS			either the same window (:A and :AE), a new split
+:AV			window (:AS), a new vertically split window (:AV), a
+:AT			new tab (:AT).
+
+					*ember-alternate*
+For now, the alternate file is the test file.
+
+File Type Navigation Commands ~
+						*ember-type-navigation*
+Commands to navigate deliberately to a specific file are provided.
+
+Each of the following commands has variants for splitting, vertical splitting,
+opening in a new tab, and reading the file into the current buffer.  For
+:Emodel, those variants would be :Smodel, :Vmodel, :Tmodel, and :Dmodel.
+
+:Eacceptance					|ember-:Eacceptance|
+:Eapp						|ember-:Eapp|
+:Ebower						|ember-:Ebower|
+:Ebrocfile					|ember-:Ebrocfile|
+:Ebuild						|ember-:Ebuild|
+:Ecomponent					|ember-:Ecomponent|
+:Econtroller					|ember-:Econtroller|
+:Eenvironment					|ember-:Eenvironment|
+:Ehelper					|ember-:Ehelper|
+:Eindex						|ember-:Eindex|
+:Einitializer					|ember-:Einitializer|
+:Einstanceinit					|ember-:Einstanceinit|
+:Eintegration					|ember-:Eintegration|
+:Emixin						|ember-:Emixin|
+:Emodel						|ember-:Emodel|
+:Epackage					|ember-:Epackage|
+:Ereadme					|ember-:Ereadme|
+:Eroute						|ember-:Eroute|
+:Erouter					|ember-:Erouter|
+:Eserializer					|ember-:Eserializer|
+:Eservice					|ember-:Eservice|
+:Estyle						|ember-:Estyle|
+:Etemplate					|ember-:Etemplate|
+:Etest						|ember-:Etest|
+:Etransform					|ember-:Etransform|
+:Eutil						|ember-:Eutil|
+
+*ember-:Eacceptance*
+:Eacceptance [{name}]	Edit the specified acceptance test.
+
+*ember-:Eapp*
+:Eapp			Edit app/app.js.
+
+*ember-:Ebower*
+:Ebower			Edit bower.json.
+
+*ember-:Ebrocfile*
+:Ebrocfile		Edit Brocfile.js.
+
+*ember-:Ebuild*
+:Ebuild			Edit ember-cli-build.js.
+
+*ember-:Ecomponent*
+:Ecomponent [{name}]	Edit the specified component.
+
+*ember-:Econtroller*
+:Econtroller [{name}]	Edit the specified controller.
+
+*ember-:Eenvironment*
+:Eenvironment		Edit config/environment.js.
+
+*ember-:Ehelper*
+:Ehelper [{name}]	Edit the specified helper.
+
+*ember-:Eindex*
+:Eindex			Edit app/index.html.
+
+*ember-:Einitializer*
+:Einitializer [{name}]	Edit the specified initializer.
+
+*ember-:Einstanceinit*
+:Einstanceinit [{name}]	Edit the specified instance initializer.
+
+*ember-:Eintegration*
+:Eintegration [{name}]	Edit the specified integration test.
+
+*ember-:Emixin*
+:Emixin [{name}]	Edit the specified mixin.
+
+*ember-:Emodel*
+:Emodel [{name}]	Edit the specified model.
+
+*ember-:Epackage*
+:Epackage		Edit package.json.
+
+*ember-:Ereadme*
+:Ereadme		Edit README.md.
+
+*ember-:Eroute*
+:Eroute [{name}]	Edit the specified route.
+
+*ember-:Eserializer*
+:Eserializer [{name}]	Edit the specified serializer.
+
+*ember-:Eservice*
+:Eservice [{name}]	Edit the specified service.
+
+*ember-:Estyle*
+:Estyle [{name}]	Edit the specified SCSS file in app/styles.
+
+*ember-:Etemplate*
+:Etemplate [{name}]	Edit the specified template.
+
+*ember-:Etransform*
+:Etransform [{name}]	Edit the specified transform.
+
+*ember-:Eutil*
+:Eutil [{name}]		Edit the specified util.
+
+Finally, one Vim feature that proves helpful in conjunction with all of the
+above is |CTRL-^|.  This keystroke edits the previous file, and is helpful to
+back out of any of the above commands.
+
+vim:tw=78:ts=8:ft=help:norl:
