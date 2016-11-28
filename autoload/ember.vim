@@ -159,6 +159,7 @@ let s:efm_generate =
       \'%-G%.%#version:%.%#,' .
       \'%-G%.%#installing%.%#,' .
       \'%-G%.%#DEPRECATION%.%#,' .
+      \'%-G%.%#WARNING:%.%#,' .
       \'%-G%.%#help`%.%#,' .
       \'%-G%.%#index.js`%.%#,' .
       \'%-G%.%#Overwrite%.%#,' .
