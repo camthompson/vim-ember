@@ -172,7 +172,7 @@ function! s:app_generator_command(bang,...) dict
   let old_makeprg = &l:makeprg
   let old_errorformat = &l:errorformat
   try
-    let &l:makeprg = 'ember '.cmd
+    let &l:makeprg = 'npx ember '.cmd
     let &l:errorformat = s:efm_generate
     noautocmd make!
   finally
