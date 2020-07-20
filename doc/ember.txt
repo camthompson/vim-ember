@@ -37,7 +37,6 @@ The :A command is used to jump to an "alternate" file.
 :AV			window (:AS), a new vertically split window (:AV), a
 :AT			new tab (:AT).
 
-					*ember-alternate*
 For now, the alternate file is the corresponding test file.
 
 File Type Navigation Commands ~
